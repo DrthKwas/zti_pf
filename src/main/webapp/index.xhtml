@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+    <h:form>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+        <h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+            <p:outputLabel for="firstname" value="Firstname:" />
+            <p:inputText id="firstname" value="#{registerView.firstname}" required="true" label="Firstname">
+                <f:validateLength minimum="2" />
+                <p:ajax update="messages" event="keyup" />
+            </p:inputText>
+
+            <p:outputLabel for="lastname" value="Lastname:" />
+            <p:inputText id="lastname" value="#{registerView.lastname}" label="Lastname" required="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="messages" event="keyup" />
+            </p:inputText>
+
+            <h:outputLabel for="pwd1" value="Password: *" />
+            <p:password id="pwd1" value="#{registerView.password}" match="pwd2" label="Password" required="true" feedback="true" inline="true" />
+
+            <h:outputLabel for="pwd2" value="Repeat password: *" />
+            <p:password id="pwd2" value="#{registerView.password2}" label="Repeat password" required="true" inline="true" />
+        </h:panelGrid>
+        <p:commandButton value="Submit" icon="ui-icon-check" update="output" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg').show()" />
+
+        <p:dialog header="Values" resizable="false" showEffect="fade" widgetVar="dlg">
+            <p:panelGrid id="output" columns="2" columnClasses="label, value">
+                <h:outputText value="Firstname:" />
+                <h:outputText value="#{registerView.firstname}" />
+
+                <h:outputText value="Lastname:" />
+                <h:outputText value="#{registerView.lastname}" />
+
+                <h:outputText value="Password:" />
+                <h:outputText value="#{registerView.password}" />
+            </p:panelGrid>
+        </p:dialog>
+    </h:form>
+
+</h:body>
+</html>
