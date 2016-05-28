@@ -30,7 +30,11 @@
 
             <h:outputLabel for="pwd2" value="Repeat password: *" />
             <p:password id="pwd2" value="#{registerView.password2}" label="Repeat password" required="true" inline="true" />
+
+            <p:signature style="width:400px;height:200px" widgetVar="sig" value="#{signatureView.value}" required="true" label="Signature" guideline="true"/>
         </h:panelGrid>
+
+        <p:commandButton value="Clear" icon="ui-icon-close" type="button" onclick="PF('sig').clear()"/>
         <p:commandButton value="Submit" icon="ui-icon-check" update="output" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg').show()" />
 
         <p:dialog header="Values" resizable="false" showEffect="fade" widgetVar="dlg">
@@ -43,6 +47,8 @@
 
                 <h:outputText value="Password:" />
                 <h:outputText value="#{registerView.password}" />
+                <p:signature style="width:400px;height:200px;" value="#{signatureView.value}" readonly="true"
+                             rendered="#{not empty signatureView.value}" backgroundColor="#eaeaea" color="#03a9f4"/>
             </p:panelGrid>
         </p:dialog>
     </h:form>
